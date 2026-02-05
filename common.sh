@@ -13,6 +13,7 @@ N="\e[0m"
 SCRIPT_DIR=$PWD
 START_TIME=$(date +%s)
 MONGODB_HOST=mongodb.divakar88.online
+MYSQL_HOST=mysql.divakar88.online
 
 mkdir -p $LOGS_FOLDER # create log folder if not exists.
 
@@ -50,6 +51,17 @@ VALIDATE(){
         npm install  &>>$LOGS_FILE
         VALIDATE $? "Installing dependencies"
 
+    }
+    java_setup(){
+        dnf install maven -y &>>$LOGS_FILE
+    VALIDATE $? "Installing Maven"
+
+    cd /app 
+    mvn clean package &>>$LOGS_FILE
+    VALIDATE $? "Installing and Building $app_name"
+
+    mv target/$app_name-1.0.jar $app_name.jar 
+    VALIDATE $? "Moving and Renaming $app_name"
     }
 # function to setup application.
 app_setup(){
