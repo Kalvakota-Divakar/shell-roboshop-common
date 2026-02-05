@@ -5,7 +5,7 @@ source ./common.sh
 # checking for root user access.
 check_root
 # installing mysql.
-echo "Setting up MySQL Repository.
+echo "Setting up MySQL Repository"
 dnf install mysql-server -y &>>$LOGS_FILE
 VALIDATE $? "Install MySQL server"
 
