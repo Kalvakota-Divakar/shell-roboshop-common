@@ -52,6 +52,7 @@ VALIDATE(){
         VALIDATE $? "Installing dependencies"
 
     }
+    # function to setup java application.
     java_setup(){
         dnf install maven -y &>>$LOGS_FILE
     VALIDATE $? "Installing Maven"
@@ -62,6 +63,15 @@ VALIDATE(){
 
     mv target/$app_name-1.0.jar $app_name.jar 
     VALIDATE $? "Moving and Renaming $app_name"
+    }
+    # function to setup python application.
+    python_setup(){
+         dnf install python3 gcc python3-devel -y &>>$LOGS_FILE
+    VALIDATE $? "Installing Python"
+
+    cd /app 
+    pip3 install -r requirements.txt &>>$LOGS_FILE
+    VALIDATE $? "Installing dependencies"
     }
 # function to setup application.
 app_setup(){
